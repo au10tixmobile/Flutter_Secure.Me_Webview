@@ -9,7 +9,7 @@
 ## Overview
 Verified, compliant and fraud-free onboarding results in 8 seconds (or less). By the time you read this sentence, AU10TIX would have converted countless human smiles, identity documents and data points into authenticated, all-access passes to your products, services and experiences.
 
-This example application presents an implementation suggestion for the Au10tix Secure.Me Android native Webview implemtation.
+This example application presents an implementation suggestion for the Au10tix Secure.Me Flutter Webview implemtation.
 
 ## Usage
 To use this sample you have to generate a link in the Au10tix Console. Paste a link and run the flow.
