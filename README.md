@@ -1,16 +1,23 @@
-# flutter_secureme_webview
+# Au10tix Secure.Me Implementation Example - Flutter
 
-A new Flutter project.
+## Table of Contents
+- [Overview](#overview)
+- [Usage](#usage)
+    - [Permissions](#permissions)
+- [More Information](#moreInformation)
 
-## Getting Started
+## Overview
+Verified, compliant and fraud-free onboarding results in 8 seconds (or less). By the time you read this sentence, AU10TIX would have converted countless human smiles, identity documents and data points into authenticated, all-access passes to your products, services and experiences.
 
-This project is a starting point for a Flutter application.
+This example application presents an implementation suggestion for the Au10tix Secure.Me Android native Webview implemtation.
 
-A few resources to get you started if this is your first Flutter project:
+## Usage
+To use this sample you have to generate a link in the Au10tix Console. Paste a link and run the flow.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Permissions
+Secure.me uses the device location and camera to produce photos containing metadata relevant to the authentication process. 
+Both Camera and Location permissions must be declared, requested, and granted for the Secure.me to behave as expected.
+
+### More Information
+For more in depth documentation please contact our support team au10tix.support@au10tix.com.
