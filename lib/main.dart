@@ -23,29 +23,27 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(),
+      home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  MyHomePage({Key? key}) : super(key: key);
+  String url = '<your_secure.me_url>';
+  bool isChecked = false;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String url = '<your_secure.me_url>';
-
-  static const userAgent =
-      'Mozilla/5.0 (Linux; Android 8.0.0; Pixel 2 XL Build/OPD1.170816.004; Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36';
   InAppWebViewController? webViewController;
   InAppWebViewGroupOptions options = InAppWebViewGroupOptions(
     crossPlatform: InAppWebViewOptions(
-        userAgent: userAgent,
-        useShouldOverrideUrlLoading: true,
-        mediaPlaybackRequiresUserGesture: false),
+      useShouldOverrideUrlLoading: true,
+      mediaPlaybackRequiresUserGesture: false,
+    ),
     android: AndroidInAppWebViewOptions(
       useHybridComposition: true,
     ),
@@ -59,9 +57,22 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Flutter Secure.Me WebView Demo'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () async {
+              var resultLabel = await _showTextInputDialog(context);
+              print(resultLabel);
+              widget.url = resultLabel!;
+
+              webViewController?.loadUrl(
+                  urlRequest: URLRequest(url: Uri.parse(widget.url)));
+            },
+          ),
+        ],
       ),
       body: InAppWebView(
-        initialUrlRequest: URLRequest(url: Uri.parse(url)),
+        initialUrlRequest: URLRequest(url: Uri.parse(widget.url)),
         initialOptions: options,
         onWebViewCreated: (controller) {
           webViewController = controller;
@@ -78,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         onLoadStart: (controller, url) {
           setState(() {
-            this.url = url.toString();
+            widget.url = url.toString();
           });
         },
         androidOnPermissionRequest: (controller, origin, resources) async {
@@ -88,6 +99,32 @@ class _MyHomePageState extends State<MyHomePage> {
         },
       ),
     );
+  }
+
+  final _textFieldController = TextEditingController();
+
+  Future<String?> _showTextInputDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Input URL'),
+            content: TextField(
+              controller: _textFieldController,
+            ),
+            actions: <Widget>[
+              ElevatedButton(
+                child: const Text("Cancel"),
+                onPressed: () => Navigator.pop(context),
+              ),
+              ElevatedButton(
+                child: const Text('OK'),
+                onPressed: () =>
+                    Navigator.pop(context, _textFieldController.text),
+              ),
+            ],
+          );
+        });
   }
 
   void _showToast(BuildContext context, String message, Color bgColor) {
