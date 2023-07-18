@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key}) : super(key: key);
-  String url = '<your_secure.me_url>';
+  String url = 'https://github.com/flutter';
   bool isChecked = false;
 
   @override
